@@ -4,6 +4,7 @@ import {
   IsNumber,
   Min,
   IsOptional,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateCustomerDto {
@@ -22,4 +23,7 @@ export class CreateCustomerDto {
   @IsNumber()
   @Min(0)
   companyValue: number;
+
+  @IsBoolean()
+  selected: boolean;
 }

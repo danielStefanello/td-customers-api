@@ -13,4 +13,7 @@ export class Customer {
 
   @Column()
   companyValue: number;
+
+  @Column()
+  selected: boolean;
 }
