@@ -52,6 +52,18 @@ export class CustomersService {
   }
 
   async remove(id: number): Promise<void> {
+    const customer = await this.customerRepository.findOne({
+      where: { id },
+    });
+    if (!customer) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'customer does not exists',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     await this.customerRepository.delete(id);
   }
 }
