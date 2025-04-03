@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customers.entity';
@@ -16,8 +16,20 @@ export class CustomersService {
     return this.customerRepository.find();
   }
 
-  findOne(id: number): Promise<Customer | null> {
-    return this.customerRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<Customer | null> {
+    const customer = await this.customerRepository.findOne({
+      where: { id },
+    });
+    if (!customer) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'customer not found',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    return customer;
   }
 
   async create(customer: Customer): Promise<Customer> {
@@ -27,7 +39,13 @@ export class CustomersService {
   async update(id: number, updateCustomer: Partial<Customer>) {
     const customer = await this.customerRepository.findOne({ where: { id } });
     if (!customer) {
-      throw new Error('customer not found');
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'customer not found',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
     Object.assign(customer, updateCustomer);
     return this.customerRepository.save(customer);
