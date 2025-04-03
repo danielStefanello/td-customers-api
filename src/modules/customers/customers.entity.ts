@@ -14,6 +14,6 @@ export class Customer {
   @Column()
   companyValue: number;
 
-  @Column()
+  @Column({ default: false })
   selected: boolean;
 }
