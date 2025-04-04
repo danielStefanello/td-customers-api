@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('TD Customers API')
     .setDescription('Rest API of list and select customers')
     .setVersion('0.0.1')
-    .addTag('customers')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

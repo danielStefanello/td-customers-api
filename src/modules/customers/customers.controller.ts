@@ -12,7 +12,7 @@ import { Customer } from './customers.entity';
 import { CreateCustomerDto } from './customers.validation';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('customers')
+@ApiTags('Customers')
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
