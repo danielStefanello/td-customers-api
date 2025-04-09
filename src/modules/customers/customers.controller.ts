@@ -6,11 +6,13 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { Customer } from './customers.entity';
 import { CreateCustomerDto } from './customers.validation';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaginationDto } from './pagination.dto';
 
 @ApiTags('Customers')
 @Controller('customers')
@@ -20,9 +22,28 @@ export class CustomersController {
   @ApiOperation({ summary: 'List all customers' })
   @ApiResponse({ status: 200, description: 'Listed customers' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  @ApiQuery({
+    name: 'sort',
+    required: false,
+    enum: ['id', 'name', 'salary', 'companyValue'],
+  })
+  @ApiQuery({ name: 'order', required: false, enum: ['ASC', 'DESC'] })
+  @ApiQuery({ name: 'selected', required: false, type: Boolean })
   @Get()
-  findAll(): Promise<Customer[]> {
-    return this.customersService.findAll();
+  findAll(
+    @Query() pagination: PaginationDto,
+    @Query('sort') sort?: 'id' | 'name' | 'salary' | 'companyValue',
+    @Query('order') order?: 'ASC' | 'DESC',
+    @Query('selected') selected?: boolean,
+  ): Promise<{ data: Customer[]; count: number }> {
+    return this.customersService.findAll({
+      pagination,
+      sort,
+      order,
+      filters: { selected },
+    });
   }
 
   @ApiOperation({ summary: 'Find one customer' })
