@@ -7,7 +7,7 @@ export default class CustomerSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(Customer);
 
-    const customers: Omit<Customer, 'id'>[] = Array(87)
+    const customers: Omit<Customer, 'id'>[] = Array(147)
       .fill(null)
       .map(() => ({
         name: faker.person.firstName(),
