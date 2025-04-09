@@ -38,8 +38,6 @@ export class CustomersService {
       take: limit,
     };
 
-    console.log('findOptions', typeof findOptions, findOptions);
-
     const [data, count] =
       await this.customerRepository.findAndCount(findOptions);
 
