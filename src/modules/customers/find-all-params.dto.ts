@@ -6,11 +6,11 @@ export class FindAllParams {
 
   @IsOptional()
   @IsIn(['id', 'name', 'salary', 'companyValue'])
-  sort?: string;
+  sort?: string = 'id';
 
   @IsOptional()
   @IsIn(['ASC', 'DESC'])
-  order?: string;
+  order?: string = 'ASC';
 
   @IsOptional()
   filters?: {
