@@ -13,6 +13,7 @@ import { Customer } from './customers.entity';
 import { CreateCustomerDto } from './customers.validation';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaginationDto } from './pagination.dto';
+import { IListCustomerResponse } from './list-response.types';
 
 @ApiTags('Customers')
 @Controller('customers')
@@ -37,7 +38,7 @@ export class CustomersController {
     @Query('sort') sort?: 'id' | 'name' | 'salary' | 'companyValue',
     @Query('order') order?: 'ASC' | 'DESC',
     @Query('selected') selected?: boolean,
-  ): Promise<{ data: Customer[]; count: number }> {
+  ): Promise<IListCustomerResponse> {
     return this.customersService.findAll({
       pagination,
       sort,

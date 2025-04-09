@@ -1,7 +1,7 @@
 import { IsIn, IsOptional } from 'class-validator';
 import { PaginationDto } from './pagination.dto';
 
-export class FindAllParams {
+export class ListCustomersParams {
   pagination: PaginationDto;
 
   @IsOptional()

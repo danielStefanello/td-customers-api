@@ -2,7 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, Repository } from 'typeorm';
 import { Customer } from './customers.entity';
-import { FindAllParams } from './find-all-params.dto';
+import { ListCustomersParams } from './list-customers-params.dto';
+import { IListCustomerResponse } from './list-response.types';
 
 @Injectable()
 export class CustomersService {
@@ -13,9 +14,7 @@ export class CustomersService {
     console.log('CustomerRepository:', customerRepository);
   }
 
-  async findAll(
-    params: FindAllParams,
-  ): Promise<{ data: Customer[]; count: number }> {
+  async findAll(params: ListCustomersParams): Promise<IListCustomerResponse> {
     const { pagination, sort, order, filters } = params;
     const { page, limit } = pagination;
     const skip = (page - 1) * limit;
@@ -44,7 +43,7 @@ export class CustomersService {
     const [data, count] =
       await this.customerRepository.findAndCount(findOptions);
 
-    return { data, count };
+    return { data, count, limit, page };
   }
 
   async findOne(id: number): Promise<Customer | null> {
