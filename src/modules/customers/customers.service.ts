@@ -75,7 +75,8 @@ export class CustomersService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    Object.assign(customer, updateCustomer);
+
+    Object.assign(customer, { ...updateCustomer, id });
     return this.customerRepository.save(customer);
   }
 
