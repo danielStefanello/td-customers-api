@@ -11,8 +11,8 @@ export default class CustomerSeeder implements Seeder {
       .fill(null)
       .map(() => ({
         name: faker.person.firstName(),
-        salary: faker.number.int({ min: 700, max: 13000 }),
-        companyValue: faker.number.int({ min: 10000, max: 1000000 }),
+        salary: faker.number.float({ min: 700, max: 13000 }),
+        companyValue: faker.number.float({ min: 10000, max: 1000000 }),
         selected: false,
       }));
 

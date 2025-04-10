@@ -25,7 +25,7 @@ export class CreateCustomerDto {
   @Min(0)
   @ApiProperty({
     description: 'Salary of customer',
-    example: 123,
+    example: 123.45,
   })
   salary: number;
 
@@ -33,7 +33,7 @@ export class CreateCustomerDto {
   @Min(0)
   @ApiProperty({
     description: 'Company valuation',
-    example: 1350000,
+    example: 99999999.99,
   })
   companyValue: number;
 
